@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PPCAB Online</title>
+  <link rel="icon" href="logo.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      color: #1f2937;
+    }
+    .top-bar {
+      background-color: #ffffff;
+      color: #000000;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      flex-wrap: wrap;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    .top-bar button {
+      background: #f1f5f9;
+      color: #000000;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .menu-bar {
+      background-color: #374151;
+      color: white;
+      padding: 10px 20px;
+      font-size: 14px;
+      position: fixed;
+      top: 50px;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      text-align: left;
+    }
+    .menu-bar select {
+      background-color: #1f2937;
+      color: white;
+      padding: 5px;
+      border: none;
+      border-radius: 3px;
+      margin-left: 5px;
+    }
+    .running-text {
+      background-color: #facc15;
+      color: black;
+      font-weight: bold;
+      font-size: 14px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      position: fixed;
+      top: 92px;
+      left: 0;
+      right: 0;
+      z-index: 998;
+    }
+    .running-text p {
+      display: inline-block;
+      white-space: nowrap;
+      animation: smooth-marquee 15s linear infinite;
+      padding-left: 100%;
+    }
+    @keyframes smooth-marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
+    }
+    .main-content {
+      text-align: center;
+      padding: 140px 20px 20px;
+    }
+    .main-content img {
+      width: 90px;
+      height: 90px;
+      margin-bottom: 10px;
+      border-radius: 50%;
+      border: 3px solid #1e3a8a;
+    }
+    .main-content h2 {
+      margin: 5px 0;
+      font-size: 22px;
+    }
+    .main-content h3 {
+      margin: 4px 0;
+      font-size: 16px;
+      font-weight: normal;
+    }
+    .main-content strong {
+      font-size: 20px;
+    }
+    .nav-menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+      background-color: #fff;
+    }
+    .nav-menu a {
+      text-decoration: none;
+      color: #374151;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .breadcrumb {
+      background-color: #f3f4f6;
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+    .breadcrumb strong {
+      color: #111827;
+    }
+    .school-detail {
+      text-align: center;
+      padding: 30px 20px;
+      background-color: #ffffff;
+    }
+    .school-detail-icon {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+    .school-detail h2 {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    .school-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      font-size: 13px;
+      color: #4b5563;
+    }
+    .result-section {
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #f9fafb;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+    }
+    .result-meta {
+      text-align: left;
+      padding-bottom: 10px;
+      font-size: 13px;
+      color: #6b7280;
+    }
+    .student-card {
+      background-color: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-left: 5px solid #1e3a8a;
+      border-radius: 6px;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .student-card div {
+      font-size: 15px;
+      line-height: 1.6;
+      word-break: break-word;
+    }
+    .student-card a {
+      color: #1d4ed8;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .student-number {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #1e3a8a;
+    }
+    .student-card div strong {
+      display: inline-block;
+      width: 130px;
+    }
+    @media screen and (max-width: 600px) {
+      body {
+        font-size: 14px;
+      }
+      .top-bar, .menu-bar, .breadcrumb, .school-detail, .result-section {
+        padding: 10px;
+      }
+      .main-content h2 {
+        font-size: 18px;
+      }
+      .main-content h3 {
+        font-size: 14px;
+      }
+      .main-content img {
+        width: 75px;
+        height: 75px;
+      }
+      .nav-menu {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .student-card {
+        padding: 12px 15px;
+      }
+      .student-card div {
+        font-size: 13.5px;
+      }
+      .student-card div strong {
+        width: 110px;
+      }
+    }
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #6b7280;
+      padding: 20px 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div><strong>PPCAB</strong> Online</div>
+    <button>Seleksi Anggota</button>
+  </div>
+
+  <div class="menu-bar">
+    Divisi Yang Anda Pilih &raquo;
+    <select onchange="location = this.value;">
+      <option value="#">Pilih Divisi</option>
+      <option value="index.html">Kameramen</option>
+      <option value="script.html">Scriptwriter</option>
+      <option value="editor.html">Editor</option>
+      <option value="designvisual.html">Design Visual</option>
+    </select>
+  </div>
+
+  <div class="running-text">
+    <p>Laman Online PPCAB (Pelaksanaan Penerimaan Calon Anggota Baru), Silahkan Pilih Seleksi dengan divisi yang di daftarkan Pada Pendaftaran Vigara Production. Pengumuman Akan di laksanakan secara Online Melalui Website Vigara Production.</p>
+  </div>
+
+  <div class="main-content">
+    <img src="Logo.png" alt="Logo">
+    <h2>Vigpro New Revolution</h2>
+    <h3>Masa Periode 2025 / 2026</h3>
+    <h3>Vigpro Generasi X </h3>
+    <h2><strong>Jalur Seleksi Editor</strong></h2>
+  </div>
+
+  <div class="breadcrumb">
+    Hasil Seleksi &gt; <strong>Detail Seleksi</strong>
+  </div>
+
+  <div class="school-detail">
+    <div class="school-detail-icon">🏫</div>
+      <div>2 Kuota</div> 
+    </div>
+  </div>
+
+  <div class="result-section">
+    <div class="result-meta">
+      <p>📅 Seleksi 1 - 5 Oktober 2025 &nbsp; 🔴 <span style="color:red">Data Sementara</span></p>
+      <p>Hasil s/d tanggal 5 Oktober 2025 10:47 WIB</p>
+    </div>
+
+    <div class="student-number">Peserta 1</div>
+    <div class="student-card">
+      <div><strong>No Daftar:</strong> <a href="#">9964811448</a></div>
+      <div><strong>Nama Calon:</strong> Deannova Hannito Satriawan </div>
+      <div><strong>Kelas:</strong> XB </div>
+      <div><strong>Nilai:</strong> 78.75</div>
+      <div><strong>Waktu:</strong> 08 January 2025, 20.51.12</div>
+    </div>
+
+    <div class="student-number">Peserta 2</div>
+    <div class="student-card">
+      <div><strong>No Daftar:</strong> <a href="#">9964899899</a></div>
+      <div><strong>Nama Calon:</strong> Kusuma Raga Permana </div>
+      <div><strong>Kelas:</strong> XC </div>
+      <div><strong>Nilai:</strong> 74.05</div>
+      <div><strong>Waktu:</strong> 08 January 2025, 21.13.53</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    &copy; Vigara Production PPCAB 2025. All rights reserved.
+  </div>
+</body>
+</html>
